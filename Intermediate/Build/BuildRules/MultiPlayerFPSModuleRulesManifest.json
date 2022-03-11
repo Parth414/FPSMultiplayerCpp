@@ -1,8 +1,8 @@
 {
 	"SourceFiles": [
-		"C:\\Users\\parth\\Documents\\GitHub\\FPS\\Source\\MultiPlayerFPS\\MultiPlayerFPS.Build.cs",
-		"C:\\Users\\parth\\Documents\\GitHub\\FPS\\Source\\MultiPlayerFPS.Target.cs",
-		"C:\\Users\\parth\\Documents\\GitHub\\FPS\\Source\\MultiPlayerFPSEditor.Target.cs"
+		"D:\\Unreal Repos\\FPSMultiplayerCpp\\Source\\MultiPlayerFPS\\MultiPlayerFPS.Build.cs",
+		"D:\\Unreal Repos\\FPSMultiplayerCpp\\Source\\MultiPlayerFPS.Target.cs",
+		"D:\\Unreal Repos\\FPSMultiplayerCpp\\Source\\MultiPlayerFPSEditor.Target.cs"
 	],
 	"EngineVersion": "4.27.2"
 }

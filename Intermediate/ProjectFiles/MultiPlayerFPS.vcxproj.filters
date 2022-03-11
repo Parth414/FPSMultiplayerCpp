@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <None Include="..\..\MultiPlayerFPS.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{8D665DA4-6717-484D-B5F4-47FA94CDC1F3}</UniqueIdentifier>
+      <UniqueIdentifier>{567DFCD0-9D7F-49CB-A8B6-CB4AAA6629CD}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\MultiPlayerFPS.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{589CEF61-FBF7-479B-9562-788E1F8CE354}</UniqueIdentifier>
+      <UniqueIdentifier>{DE6B485C-2DEF-4A8B-8F3F-F0984CEBDD03}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -30,7 +30,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\MultiPlayerFPS">
-      <UniqueIdentifier>{2D48C157-6F94-4528-95F7-A3B1611EBA4C}</UniqueIdentifier>
+      <UniqueIdentifier>{5E33CEB0-C745-4984-BB74-13148B6EF4D9}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\MultiPlayerFPS\MultiPlayerFPS.Build.cs">
       <Filter>Source\MultiPlayerFPS</Filter>
@@ -66,7 +66,7 @@
       <Filter>Source\MultiPlayerFPS</Filter>
     </ClInclude>
     <Filter Include="Source\MultiPlayerFPS\Character">
-      <UniqueIdentifier>{5338273B-0DCB-4B3E-B32C-95AE86E94008}</UniqueIdentifier>
+      <UniqueIdentifier>{BA50286C-FBE5-4FFA-A71A-88B40B245775}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\MultiPlayerFPS\Character\FPSBaseCharacter.cpp">
       <Filter>Source\MultiPlayerFPS\Character</Filter>
@@ -75,7 +75,7 @@
       <Filter>Source\MultiPlayerFPS\Character</Filter>
     </ClInclude>
     <Filter Include="Source\MultiPlayerFPS\Weapon">
-      <UniqueIdentifier>{6A41CE13-5543-4AA5-9F71-48058564ADC7}</UniqueIdentifier>
+      <UniqueIdentifier>{5664F4BA-F223-423C-962B-CC8CE677B088}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\MultiPlayerFPS\Weapon\Gun.cpp">
       <Filter>Source\MultiPlayerFPS\Weapon</Filter>
