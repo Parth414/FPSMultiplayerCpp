@@ -47,6 +47,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	void OnFire();
 
+	UFUNCTION(BlueprintCallable, Category = "Input")
+	void OnFireAnimationOnly();
+
 	/** Sound to play each time we fire */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	class USoundBase* FireSound;
@@ -67,5 +70,7 @@ public:
 	/** Whether to use motion controller location for aiming. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	uint32 bUsingMotionControllers : 1;
+
+	void PlayAnimationOnly();
 
 };

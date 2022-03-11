@@ -5,6 +5,7 @@
 
 #include "Kismet/GameplayStatics.h"
 #include "MultiPlayerFPS/MultiPlayerFPSProjectile.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 // Sets default values
 AGun::AGun()
@@ -64,7 +65,27 @@ void AGun::OnFire()
 			
 		}
 	}
-	
+
+	PlayAnimationOnly();
+}
+
+void AGun::OnFireAnimationOnly()
+{
+
+	switch (GetLocalRole())
+	{
+	case ENetRole::ROLE_AutonomousProxy:
+		
+		break;
+	case ENetRole::ROLE_Authority:
+		break;
+	case ENetRole::ROLE_SimulatedProxy:
+		break;
+	}
+}
+
+void AGun::PlayAnimationOnly()
+{
 	// try and play the sound if specified
 	if (FireSound != NULL)
 	{
@@ -75,11 +96,6 @@ void AGun::OnFire()
 	if (FireAnimation1P != nullptr && AnimInstance1P != nullptr)
 	{
 		AnimInstance1P->Montage_Play(FireAnimation1P, 1.f);
-	}
-	if (FireAnimation3P != nullptr && AnimInstance3P != nullptr)
-	{
-		AnimInstance3P->Montage_Play(FireAnimation3P, 1.f);
-		//UE_LOG(LogTemp, Warning, TEXT("3P montage played -> %s"), *AnimInstance3P->GetName());
 	}
 }
 

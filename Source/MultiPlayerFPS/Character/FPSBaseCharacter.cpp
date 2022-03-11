@@ -7,12 +7,31 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "MultiPlayerFPS/Weapon/Gun.h"
+#include "DrawDebugHelpers.h"
+
+FString GetEnumText(ENetRole Role)
+{
+	switch (Role)
+	{
+	case ROLE_None:
+		return "None";
+	case ROLE_SimulatedProxy:
+		return "SimulatedProxy";
+	case ROLE_AutonomousProxy:
+		return "AutonomousProxy";
+	case ROLE_Authority:
+		return "Authority";
+	default:
+		return "ERROR";
+	}
+}
 
 // Sets default values
 AFPSBaseCharacter::AFPSBaseCharacter()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	bReplicates = true;
 
 	//Create Camera
 	FirstPersonCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("First Person Camera"));
@@ -55,18 +74,13 @@ void AFPSBaseCharacter::BeginPlay()
 
 	Gun->AnimInstance1P = Mesh1P->GetAnimInstance();
 	Gun->AnimInstance3P = GetMesh()->GetAnimInstance();
-
-	/*if(InputComponent != nullptr)
-	{
-		//InputComponent->BindAction("Fire", IE_Pressed, this, &AFPSBaseCharacter::PullTriger);
-	}*/
 }
 
 // Called every frame
 void AFPSBaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	DrawDebugString(GetWorld(), FVector(0,0,100), GetEnumText(GetLocalRole()), this, FColor::Green, DeltaTime);;
 }
 
 // Called to bind functionality to input
@@ -82,7 +96,7 @@ void AFPSBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &AFPSBaseCharacter::NotJumping);
 
 	// Bind fire event
-	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AFPSBaseCharacter::Server_PullTriger);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AFPSBaseCharacter::Local_PullTrigger);
 
 	// Bind movement events
 	PlayerInputComponent->BindAxis("MoveForward", this, &AFPSBaseCharacter::MoveForward);
@@ -97,6 +111,42 @@ void AFPSBaseCharacter::UnPossessed()
 {
 	Super::UnPossessed();
 	
+}
+
+void AFPSBaseCharacter::Local_PullTrigger()
+{
+	if (GetLocalRole() == ENetRole::ROLE_AutonomousProxy)
+	{
+		Server_PullTriger();
+		Server_PlayAnimationAny();
+		Gun->PlayAnimationOnly();
+	}
+	else
+	{
+		Gun->OnFire();
+		MultiCast_PlayAnimationAny();
+	}
+}
+
+void AFPSBaseCharacter::PlayAnimationAny()
+{
+	GetMesh()->GetAnimInstance()->Montage_Play(Gun->FireAnimation3P);
+	Mesh1P->GetAnimInstance()->Montage_Play(Gun->FireAnimation1P);
+}
+
+void AFPSBaseCharacter::MultiCast_PlayAnimationAny_Implementation()
+{
+	PlayAnimationAny();
+}
+
+void AFPSBaseCharacter::Server_PlayAnimationAny_Implementation()
+{
+	MultiCast_PlayAnimationAny();
+}
+
+bool AFPSBaseCharacter::Server_PlayAnimationAny_Validate()
+{
+	return true;
 }
 
 void AFPSBaseCharacter::Server_PullTriger_Implementation()

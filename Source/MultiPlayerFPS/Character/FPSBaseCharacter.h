@@ -17,9 +17,6 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	TSubclassOf<class AGun> GunBlueprint;
 
-	UFUNCTION(Server, Reliable, WithValidation)
-	void Server_PullTriger();
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -53,6 +50,23 @@ protected:
 	void MoveRight(float Val);
 	void Jumping();
 	void NotJumping();
-	
 
+public:
+	/*
+	 *Section For RPC
+	 */
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_PullTriger();
+
+	void Local_PullTrigger();
+
+	UFUNCTION(Server, Reliable, WithValidation)
+	void Server_PlayAnimationAny();
+
+	UFUNCTION(NetMulticast, Reliable)
+	void MultiCast_PlayAnimationAny();
+
+	void PlayAnimationAny();
+	
 };
