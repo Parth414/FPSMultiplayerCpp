@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\MultiPlayerFPS.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{8D665DA4-6717-484D-B5F4-47FA94CDC1F3}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\MultiPlayerFPS.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\MultiPlayerFPSEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{589CEF61-FBF7-479B-9562-788E1F8CE354}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\MultiPlayerFPS">
+      <UniqueIdentifier>{2D48C157-6F94-4528-95F7-A3B1611EBA4C}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\MultiPlayerFPS\MultiPlayerFPS.Build.cs">
+      <Filter>Source\MultiPlayerFPS</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\MultiPlayerFPS\MultiPlayerFPS.cpp">
+      <Filter>Source\MultiPlayerFPS</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MultiPlayerFPS\MultiPlayerFPS.h">
+      <Filter>Source\MultiPlayerFPS</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MultiPlayerFPS\MultiPlayerFPSCharacter.cpp">
+      <Filter>Source\MultiPlayerFPS</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MultiPlayerFPS\MultiPlayerFPSCharacter.h">
+      <Filter>Source\MultiPlayerFPS</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MultiPlayerFPS\MultiPlayerFPSGameMode.cpp">
+      <Filter>Source\MultiPlayerFPS</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MultiPlayerFPS\MultiPlayerFPSGameMode.h">
+      <Filter>Source\MultiPlayerFPS</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MultiPlayerFPS\MultiPlayerFPSHUD.cpp">
+      <Filter>Source\MultiPlayerFPS</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MultiPlayerFPS\MultiPlayerFPSHUD.h">
+      <Filter>Source\MultiPlayerFPS</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\MultiPlayerFPS\MultiPlayerFPSProjectile.cpp">
+      <Filter>Source\MultiPlayerFPS</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MultiPlayerFPS\MultiPlayerFPSProjectile.h">
+      <Filter>Source\MultiPlayerFPS</Filter>
+    </ClInclude>
+    <Filter Include="Source\MultiPlayerFPS\Character">
+      <UniqueIdentifier>{5338273B-0DCB-4B3E-B32C-95AE86E94008}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\MultiPlayerFPS\Character\FPSBaseCharacter.cpp">
+      <Filter>Source\MultiPlayerFPS\Character</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MultiPlayerFPS\Character\FPSBaseCharacter.h">
+      <Filter>Source\MultiPlayerFPS\Character</Filter>
+    </ClInclude>
+    <Filter Include="Source\MultiPlayerFPS\Weapon">
+      <UniqueIdentifier>{6A41CE13-5543-4AA5-9F71-48058564ADC7}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\MultiPlayerFPS\Weapon\Gun.cpp">
+      <Filter>Source\MultiPlayerFPS\Weapon</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\MultiPlayerFPS\Weapon\Gun.h">
+      <Filter>Source\MultiPlayerFPS\Weapon</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

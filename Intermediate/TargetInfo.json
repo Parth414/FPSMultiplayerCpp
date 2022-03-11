@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "MultiPlayerFPS",
+			"Path": "C:\\Users\\parth\\Documents\\GitHub\\FPS\\Source\\MultiPlayerFPS.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "MultiPlayerFPSEditor",
+			"Path": "C:\\Users\\parth\\Documents\\GitHub\\FPS\\Source\\MultiPlayerFPSEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}
