@@ -18,7 +18,7 @@ void UFPSGameInstance::Init()
 	Super::Init();
 
 	OnlineSubsystem = IOnlineSubsystem::Get();
-	Login();
+	//Login();
 	
 }
 

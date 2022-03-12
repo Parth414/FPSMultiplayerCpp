@@ -4,7 +4,7 @@
 #include "Gun.h"
 
 #include "Kismet/GameplayStatics.h"
-#include "MultiPlayerFPS/MultiPlayerFPSProjectile.h"
+#include "MultiPlayerFPSProjectile.h"
 #include "Kismet/KismetSystemLibrary.h"
 
 // Sets default values

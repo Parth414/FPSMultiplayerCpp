@@ -57,7 +57,7 @@ public:
 	 */
 
 	UFUNCTION(Server, Reliable, WithValidation)
-	void Server_PullTriger();
+	void Server_PullTrigger();
 
 	void Local_PullTrigger();
 
@@ -68,5 +68,18 @@ public:
 	void MultiCast_PlayAnimationAny();
 
 	void PlayAnimationAny();
+
+	UFUNCTION(BlueprintCallable, Server, Reliable)
+	void TakeDamageCustom(float BaseDamage);
+
+	/*
+	 * Replicated Properties
+	 */
+private:
+	UPROPERTY(Replicated)
+	float Rep_CurrentHealth =  20;
 	
+public:
+	UPROPERTY(BlueprintReadOnly, Replicated)
+	bool Rep_IsDead = false;
 };

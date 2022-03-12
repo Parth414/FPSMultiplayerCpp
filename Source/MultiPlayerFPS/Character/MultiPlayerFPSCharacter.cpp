@@ -1,7 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "MultiPlayerFPSCharacter.h"
-#include "MultiPlayerFPSProjectile.h"
+#include "../Weapon/MultiPlayerFPSProjectile.h"
 #include "Animation/AnimInstance.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"

@@ -8,6 +8,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "MultiPlayerFPS/Weapon/Gun.h"
 #include "DrawDebugHelpers.h"
+#include "Net/UnrealNetwork.h"
 
 FString GetEnumText(ENetRole Role)
 {
@@ -76,11 +77,19 @@ void AFPSBaseCharacter::BeginPlay()
 	Gun->AnimInstance3P = GetMesh()->GetAnimInstance();
 }
 
+void AFPSBaseCharacter::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AFPSBaseCharacter, Rep_CurrentHealth);
+	DOREPLIFETIME(AFPSBaseCharacter, Rep_IsDead);
+}
+
 // Called every frame
 void AFPSBaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	DrawDebugString(GetWorld(), FVector(0,0,100), GetEnumText(GetLocalRole()), this, FColor::Green, DeltaTime);;
+	
+	DrawDebugString(GetWorld(), FVector(0,0,100), FString().Printf(TEXT("Current HP -> %0.f"), Rep_CurrentHealth), this, FColor::Green, DeltaTime);
 }
 
 // Called to bind functionality to input
@@ -117,7 +126,7 @@ void AFPSBaseCharacter::Local_PullTrigger()
 {
 	if (GetLocalRole() == ENetRole::ROLE_AutonomousProxy)
 	{
-		Server_PullTriger();
+		Server_PullTrigger();
 		Server_PlayAnimationAny();
 		Gun->PlayAnimationOnly();
 	}
@@ -149,12 +158,12 @@ bool AFPSBaseCharacter::Server_PlayAnimationAny_Validate()
 	return true;
 }
 
-void AFPSBaseCharacter::Server_PullTriger_Implementation()
+void AFPSBaseCharacter::Server_PullTrigger_Implementation()
 {
 	Gun->OnFire();
 }
 
-bool AFPSBaseCharacter::Server_PullTriger_Validate()
+bool AFPSBaseCharacter::Server_PullTrigger_Validate()
 {
 	return true;
 }
@@ -209,6 +218,14 @@ void AFPSBaseCharacter::NotJumping()
 	}
 }
 
+void AFPSBaseCharacter::TakeDamageCustom_Implementation(float BaseDamage)
+{
+	Rep_CurrentHealth += -trunc(BaseDamage);
 
+	if (Rep_CurrentHealth <= 0)
+	{
+		Rep_IsDead = true;
+	}
+}
 
 

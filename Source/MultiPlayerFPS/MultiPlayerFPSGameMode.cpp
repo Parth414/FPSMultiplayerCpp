@@ -2,7 +2,7 @@
 
 #include "MultiPlayerFPSGameMode.h"
 #include "MultiPlayerFPSHUD.h"
-#include "MultiPlayerFPSCharacter.h"
+#include "Character/MultiPlayerFPSCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
 AMultiPlayerFPSGameMode::AMultiPlayerFPSGameMode()
