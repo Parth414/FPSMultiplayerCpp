@@ -5,8 +5,11 @@
 
 #include "Interfaces/OnlineSessionInterface.h"
 #include "Interfaces/OnlineIdentityInterface.h"
+#include "Interfaces/OnlineFriendsInterface.h"
 #include "OnlineSubsystem.h"
 #include "OnlineSessionSettings.h"
+
+const FName TestSessionName = FName("Test Sessiom");
 
 UFPSGameInstance::UFPSGameInstance()
 {
@@ -69,14 +72,16 @@ void UFPSGameInstance::CreateSession()
 				FOnlineSessionSettings SessionSettings;
 				SessionSettings.bIsDedicated = false;
 				SessionSettings.bShouldAdvertise = true;
-				SessionSettings.bIsLANMatch = true;
+				SessionSettings.bIsLANMatch = false;
 				SessionSettings.NumPublicConnections = 5;
 				SessionSettings.bAllowJoinInProgress = true;
 				SessionSettings.bAllowJoinViaPresence = true;
 				SessionSettings.bUsesPresence = true;
+				SessionSettings.bUseLobbiesIfAvailable = true;
+				SessionSettings.Set(SEARCH_KEYWORDS, FString("FPSLobby"), EOnlineDataAdvertisementType::ViaOnlineService);
 
 				SessionPtr->OnCreateSessionCompleteDelegates.AddUObject(this, &UFPSGameInstance::OnlineCreateSessionComplete);
-				SessionPtr->CreateSession(0, FName("Test Session"), SessionSettings);
+				SessionPtr->CreateSession(0, TestSessionName/*FName("Test Session")*/, SessionSettings);
 			}
 		}
 	}
@@ -95,6 +100,69 @@ void UFPSGameInstance::OnlineCreateSessionComplete(FName SessionName, bool bWasS
 		if (IOnlineSessionPtr SessionPtr = OnlineSubsystem->GetSessionInterface())
 		{
 			SessionPtr->ClearOnCreateSessionCompleteDelegates(this);
+		}
+	}
+}
+
+void UFPSGameInstance::DestroySession()
+{
+	if (OnlineSubsystem)
+	{
+		if (IOnlineSessionPtr SessionPtr = OnlineSubsystem->GetSessionInterface())
+		{
+			SessionPtr->OnDestroySessionCompleteDelegates.AddUObject(this, &UFPSGameInstance::OnlineDestroySessionComplete);
+			SessionPtr->DestroySession(TestSessionName);
+		}
+	}
+}
+
+void UFPSGameInstance::OnlineDestroySessionComplete(FName SessionName, bool bWasSucccessful)
+{
+	if (OnlineSubsystem)
+	{
+		if (IOnlineSessionPtr SessionPtr = OnlineSubsystem->GetSessionInterface())
+		{
+			SessionPtr->ClearOnDestroySessionCompleteDelegates(this);
+		}
+	}
+}
+
+void UFPSGameInstance::GetAllFriends()
+{
+	if (bIsLoggedIn)
+	{
+		if(OnlineSubsystem)
+		{
+			if (IOnlineFriendsPtr FriendsPtr = OnlineSubsystem->GetFriendsInterface())
+				{
+					FriendsPtr->ReadFriendsList(0,FString(""),FOnReadFriendsListComplete::CreateUObject(this,&UFPSGameInstance::OnGetAllFriendsComplete));
+				}
+		}
+	}
+}
+
+void UFPSGameInstance::OnGetAllFriendsComplete(int32 LocalUserNum, bool bWasSuccessful, const FString& ListName, const FString& ErrorStr)
+{
+	if (bWasSuccessful)
+	{
+		if (OnlineSubsystem)
+		{
+			if (IOnlineFriendsPtr FriendsPtr = OnlineSubsystem->GetFriendsInterface())
+			{
+				TArray<TSharedRef<FOnlineFriend>> FriendsList;
+				if (FriendsPtr->GetFriendsList(0, ListName, FriendsList))
+				{
+					for (TSharedRef<FOnlineFriend> Friend : FriendsList)
+					{
+						FString FriendName = Friend.Get().GetRealName();
+						UE_LOG(LogTemp, Warning, TEXT("Friends : %s"), *FriendName);
+					}
+				}
+				else
+				{
+					UE_LOG(LogTemp, Warning, TEXT("Failed GetFriendsList"))
+				}
+			}
 		}
 	}
 }

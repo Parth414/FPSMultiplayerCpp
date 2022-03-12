@@ -24,9 +24,15 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	void CreateSession();
-
 	void OnlineCreateSessionComplete(FName SessionName, bool bWasSucccessful);
 
+	UFUNCTION(BlueprintCallable)
+	void DestroySession();
+	void OnlineDestroySessionComplete(FName SessionName, bool bWasSucccessful);
+
+	UFUNCTION(BlueprintCallable)
+	void GetAllFriends();
+	void OnGetAllFriendsComplete(int32 LocalUserNum, bool bWasSuccessful, const FString& ListName, const FString& ErrorStr);
 protected:
 	class IOnlineSubsystem* OnlineSubsystem;
 
