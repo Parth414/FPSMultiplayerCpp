@@ -10,7 +10,7 @@
 
 UFPSGameInstance::UFPSGameInstance()
 {
-
+	bIsLoggedIn = false;
 }
 
 void UFPSGameInstance::Init()
@@ -29,10 +29,15 @@ void UFPSGameInstance::Login()
 		if (IOnlineIdentityPtr Identity = OnlineSubsystem->GetIdentityInterface())
 		{
 			FOnlineAccountCredentials Credentials;
+			
+			Credentials.Id = FString("127.0.0.1:1111");
+			Credentials.Token = FString("parth414");
+			Credentials.Type = FString("developer");
+			/*
 			Credentials.Id = FString();
 			Credentials.Token = FString();
 			Credentials.Type = FString("accountportal");
-
+			*/
 			Identity->OnLoginCompleteDelegates->AddUObject(this, &UFPSGameInstance::OnLoginComplete);
 			Identity->Login(0,Credentials);
 		}
@@ -43,7 +48,7 @@ void UFPSGameInstance::OnLoginComplete(int32 LocalUsername, bool bWasSuccessful,
 {
 
 	UE_LOG(LogTemp, Warning, TEXT("LoggedIn: %d"), bWasSuccessful);
-
+	bIsLoggedIn = bWasSuccessful;
 	if (OnlineSubsystem)
 	{
 		if (IOnlineIdentityPtr Identity = OnlineSubsystem->GetIdentityInterface())
@@ -55,22 +60,29 @@ void UFPSGameInstance::OnLoginComplete(int32 LocalUsername, bool bWasSuccessful,
 
 void UFPSGameInstance::CreateSession()
 {
-	if (OnlineSubsystem)
+	if (bIsLoggedIn)
 	{
-		if (IOnlineSessionPtr SessionPtr = OnlineSubsystem->GetSessionInterface())
+		if (OnlineSubsystem)
 		{
-			FOnlineSessionSettings SessionSettings;
-			SessionSettings.bIsDedicated = false;
-			SessionSettings.bShouldAdvertise = true;
-			SessionSettings.bIsLANMatch = true;
-			SessionSettings.NumPublicConnections = 5;
-			SessionSettings.bAllowJoinInProgress = true;
-			SessionSettings.bAllowJoinViaPresence = true;
-			SessionSettings.bUsesPresence = true;
+			if (IOnlineSessionPtr SessionPtr = OnlineSubsystem->GetSessionInterface())
+			{
+				FOnlineSessionSettings SessionSettings;
+				SessionSettings.bIsDedicated = false;
+				SessionSettings.bShouldAdvertise = true;
+				SessionSettings.bIsLANMatch = true;
+				SessionSettings.NumPublicConnections = 5;
+				SessionSettings.bAllowJoinInProgress = true;
+				SessionSettings.bAllowJoinViaPresence = true;
+				SessionSettings.bUsesPresence = true;
 
-			SessionPtr->OnCreateSessionCompleteDelegates.AddUObject(this, &UFPSGameInstance::OnlineCreateSessionComplete);
-			SessionPtr->CreateSession(0, FName("Test Session"), SessionSettings);
+				SessionPtr->OnCreateSessionCompleteDelegates.AddUObject(this, &UFPSGameInstance::OnlineCreateSessionComplete);
+				SessionPtr->CreateSession(0, FName("Test Session"), SessionSettings);
+			}
 		}
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("CANNOT CREATE SESSION"));
 	}
 }
 
