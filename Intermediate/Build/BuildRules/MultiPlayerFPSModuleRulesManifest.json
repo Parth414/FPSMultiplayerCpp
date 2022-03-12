@@ -1,10 +1,18 @@
 {
 	"SourceFiles": [
+<<<<<<< HEAD
 		"D:\\Unreal Repos\\FPSMultiplayerCpp\\Source\\MultiPlayerFPS\\MultiPlayerFPS.Build.cs",
 		"D:\\Unreal Repos\\FPSMultiplayerCpp\\Plugins\\OnlineSubsystemEOS\\Source\\OnlineSubsystemEOS\\OnlineSubsystemEOS.Build.cs",
 		"D:\\Unreal Repos\\FPSMultiplayerCpp\\Plugins\\OnlineSubsystemEOS\\Source\\OnlineSubsystemEOSPlus\\OnlineSubsystemEOSPlus.Build.cs",
 		"D:\\Unreal Repos\\FPSMultiplayerCpp\\Source\\MultiPlayerFPS.Target.cs",
 		"D:\\Unreal Repos\\FPSMultiplayerCpp\\Source\\MultiPlayerFPSEditor.Target.cs"
+=======
+		"C:\\Users\\parth\\Documents\\GitHub\\FPSMultiplayerCpp\\Source\\MultiPlayerFPS\\MultiPlayerFPS.Build.cs",
+		"C:\\Users\\parth\\Documents\\GitHub\\FPSMultiplayerCpp\\Plugins\\OnlineSubsystemEOS\\Source\\OnlineSubsystemEOS\\OnlineSubsystemEOS.Build.cs",
+		"C:\\Users\\parth\\Documents\\GitHub\\FPSMultiplayerCpp\\Plugins\\OnlineSubsystemEOS\\Source\\OnlineSubsystemEOSPlus\\OnlineSubsystemEOSPlus.Build.cs",
+		"C:\\Users\\parth\\Documents\\GitHub\\FPSMultiplayerCpp\\Source\\MultiPlayerFPS.Target.cs",
+		"C:\\Users\\parth\\Documents\\GitHub\\FPSMultiplayerCpp\\Source\\MultiPlayerFPSEditor.Target.cs"
+>>>>>>> cf4e838543be9d44dd4ddfee0d1b6b910fc851ff
 	],
 	"EngineVersion": "4.27.2"
 }

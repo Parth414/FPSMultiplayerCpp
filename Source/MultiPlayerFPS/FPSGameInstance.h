@@ -29,4 +29,6 @@ public:
 
 protected:
 	class IOnlineSubsystem* OnlineSubsystem;
+
+	bool bIsLoggedIn;
 };
