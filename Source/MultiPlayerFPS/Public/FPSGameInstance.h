@@ -19,6 +19,9 @@ public:
 
 	virtual void Init() override;
 
+	void Login();
+	void OnLoginComplete(int32 LocalUsername, bool bWasSuccessful, const FUniqueNetId& UserId, const FString& Error);
+
 	UFUNCTION(BlueprintCallable)
 	void CreateSession();
 

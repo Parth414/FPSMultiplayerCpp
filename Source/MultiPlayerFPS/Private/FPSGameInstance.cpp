@@ -4,6 +4,7 @@
 #include "FPSGameInstance.h"
 
 #include "Interfaces/OnlineSessionInterface.h"
+#include "Interfaces/OnlineIdentityInterface.h"
 #include "OnlineSubsystem.h"
 #include "OnlineSessionSettings.h"
 
@@ -17,7 +18,39 @@ void UFPSGameInstance::Init()
 	Super::Init();
 
 	OnlineSubsystem = IOnlineSubsystem::Get();
+	Login();
 	
+}
+
+void UFPSGameInstance::Login()
+{
+	if (OnlineSubsystem)
+	{
+		if (IOnlineIdentityPtr Identity = OnlineSubsystem->GetIdentityInterface())
+		{
+			FOnlineAccountCredentials Credentials;
+			Credentials.Id = FString();
+			Credentials.Token = FString();
+			Credentials.Type = FString("accountportal");
+
+			Identity->OnLoginCompleteDelegates->AddUObject(this, &UFPSGameInstance::OnLoginComplete);
+			Identity->Login(0,Credentials);
+		}
+	}
+}
+
+void UFPSGameInstance::OnLoginComplete(int32 LocalUsername, bool bWasSuccessful, const FUniqueNetId& UserId, const FString& Error)
+{
+
+	UE_LOG(LogTemp, Warning, TEXT("LoggedIn: %d"), bWasSuccessful);
+
+	if (OnlineSubsystem)
+	{
+		if (IOnlineIdentityPtr Identity = OnlineSubsystem->GetIdentityInterface())
+		{
+			Identity->ClearOnLoginCompleteDelegates(0,this);
+		}
+	}
 }
 
 void UFPSGameInstance::CreateSession()

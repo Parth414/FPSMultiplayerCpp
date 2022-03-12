@@ -450,6 +450,7 @@ public:
 	virtual ~FCallbackBase() {}
 	static bool ShouldCancelAllCallbacks() { return FCallbackBase::bShouldCancelAllCallbacks; }
 	static void CancelAllCallbacks() { FCallbackBase::bShouldCancelAllCallbacks = true; }
+	static void ResumeCallbacks() { FCallbackBase::bShouldCancelAllCallbacks = false; }
 };
 
 /** Class to handle all callbacks generically using a lambda to process callback results */

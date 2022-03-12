@@ -240,6 +240,7 @@ bool FOnlineSubsystemEOS::PlatformCreate()
 
 bool FOnlineSubsystemEOS::Init()
 {
+	FCallbackBase::ResumeCallbacks();
 	// Determine if we are the default and if we're the platform OSS
 	FString DefaultOSS;
 	GConfig->GetString(TEXT("OnlineSubsystem"), TEXT("DefaultPlatformService"), DefaultOSS, GEngineIni);
