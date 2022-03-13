@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\MultiPlayerFPS.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{07061EBB-A36B-44CB-8B0F-4D1DA9FCD94D}</UniqueIdentifier>
+      <UniqueIdentifier>{3037E6D8-A11E-4AD8-BCEE-2410AE72FD12}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\MultiPlayerFPS.Target.cs">
       <Filter>Source</Filter>
@@ -14,7 +14,7 @@
     <None Include="..\..\.gitignore" />
     <None Include="..\..\README.md" />
     <Filter Include="Config">
-      <UniqueIdentifier>{A18F9DEE-9708-4420-8F0D-08CC3197C0B8}</UniqueIdentifier>
+      <UniqueIdentifier>{26A725DE-E889-42F1-9CC2-45DADCC2CB26}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -32,22 +32,22 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Plugins">
-      <UniqueIdentifier>{D6787E54-A095-408B-987D-9034D25BDB9E}</UniqueIdentifier>
+      <UniqueIdentifier>{0BD12B42-F5E0-404A-81AB-1F439C97A5A8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Plugins\OnlineSubsystemEOS">
-      <UniqueIdentifier>{FBCB009C-70A0-48B8-B4A1-0EAD821FEF0D}</UniqueIdentifier>
+      <UniqueIdentifier>{6852249D-D69F-44BB-8E8D-BE0EEF42B3CC}</UniqueIdentifier>
     </Filter>
     <Filter Include="Plugins\OnlineSubsystemEOS\Source">
-      <UniqueIdentifier>{0DD8EFF1-4933-405E-9158-3AC25A300D0D}</UniqueIdentifier>
+      <UniqueIdentifier>{316E5C10-34FC-43A8-8CC6-9B5A8B165F58}</UniqueIdentifier>
     </Filter>
     <Filter Include="Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS">
-      <UniqueIdentifier>{B97FDFB3-4E42-4AAF-9170-22C0E077CEFE}</UniqueIdentifier>
+      <UniqueIdentifier>{00EAD24C-47AB-4365-9760-455545947BFB}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\OnlineSubsystemEOS.Build.cs">
       <Filter>Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS</Filter>
     </None>
     <Filter Include="Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Private">
-      <UniqueIdentifier>{1938FF48-3868-42BC-8C61-A0086A52C53D}</UniqueIdentifier>
+      <UniqueIdentifier>{F1C04BE8-DC4F-4404-A409-8A0C650D689C}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Private\EOSHelpers.cpp">
       <Filter>Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Private</Filter>
@@ -152,13 +152,13 @@
       <Filter>Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Private</Filter>
     </ClInclude>
     <Filter Include="Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Private\Android">
-      <UniqueIdentifier>{39FB1E72-A901-42E2-AD73-F82DF35E3E0B}</UniqueIdentifier>
+      <UniqueIdentifier>{8087606B-36E6-4A40-9BB8-F0985F39FD99}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Private\Android\AndroidEOSHelpers.h">
       <Filter>Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Private\Android</Filter>
     </ClInclude>
     <Filter Include="Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Private\IOS">
-      <UniqueIdentifier>{FEC7915A-286F-4258-92DF-1188A5CA145B}</UniqueIdentifier>
+      <UniqueIdentifier>{0C883605-5393-4662-A170-3E5F2A4EE84A}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Private\IOS\IOSEOSHelpers.cpp">
       <Filter>Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Private\IOS</Filter>
@@ -167,13 +167,13 @@
       <Filter>Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Private\IOS</Filter>
     </ClInclude>
     <Filter Include="Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Private\Mac">
-      <UniqueIdentifier>{92B9C428-6327-4B10-851D-5213F4B8D144}</UniqueIdentifier>
+      <UniqueIdentifier>{E9819B66-3AEB-436E-83EE-8B6ED6BC5237}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Private\Mac\MacEOSHelpers.h">
       <Filter>Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Private\Mac</Filter>
     </ClInclude>
     <Filter Include="Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Private\Windows">
-      <UniqueIdentifier>{41E08D8D-B715-4895-B3E1-B725C77A46EC}</UniqueIdentifier>
+      <UniqueIdentifier>{131C2AB1-0D08-4654-B5AD-F5535BAEB913}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Private\Windows\WindowsEOSHelpers.cpp">
       <Filter>Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Private\Windows</Filter>
@@ -182,7 +182,7 @@
       <Filter>Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Private\Windows</Filter>
     </ClInclude>
     <Filter Include="Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Public">
-      <UniqueIdentifier>{D7BFA52B-1C83-4C99-B63F-2C84DD9894E6}</UniqueIdentifier>
+      <UniqueIdentifier>{516B5C1B-E4BD-43A8-8F81-0DD839EDAF7F}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Public\EOSSettings.h">
       <Filter>Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOS\Public</Filter>
@@ -200,13 +200,13 @@
       <Filter>Plugins\OnlineSubsystemEOS</Filter>
     </None>
     <Filter Include="Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOSPlus">
-      <UniqueIdentifier>{7932AA99-4C4D-4404-9C80-EB9FF8CFA7AF}</UniqueIdentifier>
+      <UniqueIdentifier>{7F4F3608-400D-45B6-9A36-75C10066E642}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOSPlus\OnlineSubsystemEOSPlus.Build.cs">
       <Filter>Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOSPlus</Filter>
     </None>
     <Filter Include="Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOSPlus\Private">
-      <UniqueIdentifier>{94585030-F90A-49C0-8056-8EE6B799EB5E}</UniqueIdentifier>
+      <UniqueIdentifier>{4E33AC1A-A0D4-4D34-A165-B12AB538A8FD}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOSPlus\Private\OnlineAchievementsEOSPlus.cpp">
       <Filter>Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOSPlus\Private</Filter>
@@ -263,7 +263,7 @@
       <Filter>Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOSPlus\Private</Filter>
     </ClInclude>
     <Filter Include="Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOSPlus\Public">
-      <UniqueIdentifier>{F0AE7FD9-76DF-484E-A9BD-44A2C063E681}</UniqueIdentifier>
+      <UniqueIdentifier>{5B624233-763D-49CF-B7F7-746A6A361793}</UniqueIdentifier>
     </Filter>
     <ClInclude Include="..\..\Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOSPlus\Public\OnlineSubsystemEOSPlusModule.h">
       <Filter>Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOSPlus\Public</Filter>
@@ -272,7 +272,7 @@
       <Filter>Plugins\OnlineSubsystemEOS\Source\OnlineSubsystemEOSPlus\Public</Filter>
     </ClInclude>
     <Filter Include="Source\MultiPlayerFPS">
-      <UniqueIdentifier>{EAFE9820-A84D-4AD5-A81A-6992721FF132}</UniqueIdentifier>
+      <UniqueIdentifier>{03867B71-3B5E-4DB1-A60C-439077E67802}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\MultiPlayerFPS\FPSGameInstance.cpp">
       <Filter>Source\MultiPlayerFPS</Filter>
@@ -302,7 +302,7 @@
       <Filter>Source\MultiPlayerFPS</Filter>
     </ClInclude>
     <Filter Include="Source\MultiPlayerFPS\Character">
-      <UniqueIdentifier>{271B8086-C52D-4D31-93FA-D9C1EB038CE9}</UniqueIdentifier>
+      <UniqueIdentifier>{3499C703-AEFE-4541-8C20-A56ECFA0E200}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\MultiPlayerFPS\Character\FPSBaseCharacter.cpp">
       <Filter>Source\MultiPlayerFPS\Character</Filter>
@@ -316,8 +316,20 @@
     <ClInclude Include="..\..\Source\MultiPlayerFPS\Character\MultiPlayerFPSCharacter.h">
       <Filter>Source\MultiPlayerFPS\Character</Filter>
     </ClInclude>
+    <Filter Include="Source\MultiPlayerFPS\Private">
+      <UniqueIdentifier>{C97E28DA-DA40-490A-A13D-7C2D9A13C343}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\MultiPlayerFPS\Private\Flag.cpp">
+      <Filter>Source\MultiPlayerFPS\Private</Filter>
+    </ClCompile>
+    <Filter Include="Source\MultiPlayerFPS\Public">
+      <UniqueIdentifier>{10F4CF95-A281-47CA-8DF3-B2B3CA18CC23}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Source\MultiPlayerFPS\Public\Flag.h">
+      <Filter>Source\MultiPlayerFPS\Public</Filter>
+    </ClInclude>
     <Filter Include="Source\MultiPlayerFPS\Weapon">
-      <UniqueIdentifier>{DC0C490F-CCFA-4A02-A3BD-EEC4D77F79BC}</UniqueIdentifier>
+      <UniqueIdentifier>{A4306C44-52F4-434E-80EE-4D05788D52DB}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\MultiPlayerFPS\Weapon\Gun.cpp">
       <Filter>Source\MultiPlayerFPS\Weapon</Filter>
