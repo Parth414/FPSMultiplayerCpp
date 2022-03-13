@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "OnlineSessionSettings.h"
 #include "FPSGameInstance.generated.h"
 
 /**
@@ -25,6 +26,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void CreateSession();
 	void OnlineCreateSessionComplete(FName SessionName, bool bWasSucccessful);
+
+	UFUNCTION(BlueprintCallable)
+	void FindSession();
+	void OnFindSessionsComplete(bool bWasSuccessful);
+	void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
+	TSharedPtr<FOnlineSessionSearch> SearchSettings;
 
 	UFUNCTION(BlueprintCallable)
 	void DestroySession();

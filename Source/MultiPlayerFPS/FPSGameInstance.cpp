@@ -8,6 +8,7 @@
 #include "Interfaces/OnlineFriendsInterface.h"
 #include "OnlineSubsystem.h"
 #include "OnlineSessionSettings.h"
+#include "Kismet/GameplayStatics.h"
 
 const FName TestSessionName = FName("Test Sessiom");
 
@@ -21,7 +22,7 @@ void UFPSGameInstance::Init()
 	Super::Init();
 
 	OnlineSubsystem = IOnlineSubsystem::Get();
-	//Login();
+	Login();
 	
 }
 
@@ -72,7 +73,7 @@ void UFPSGameInstance::CreateSession()
 				FOnlineSessionSettings SessionSettings;
 				SessionSettings.bIsDedicated = false;
 				SessionSettings.bShouldAdvertise = true;
-				SessionSettings.bIsLANMatch = false;
+				SessionSettings.bIsLANMatch = true;
 				SessionSettings.NumPublicConnections = 5;
 				SessionSettings.bAllowJoinInProgress = true;
 				SessionSettings.bAllowJoinViaPresence = true;
@@ -103,6 +104,72 @@ void UFPSGameInstance::OnlineCreateSessionComplete(FName SessionName, bool bWasS
 		}
 	}
 }
+
+void UFPSGameInstance::FindSession()
+{
+	if (OnlineSubsystem)
+	{
+		if (IOnlineSessionPtr SessionPtr = OnlineSubsystem->GetSessionInterface())
+		{
+			SearchSettings = MakeShareable(new FOnlineSessionSearch());
+			SearchSettings->MaxSearchResults = 1000;
+			SearchSettings->QuerySettings.Set(SEARCH_KEYWORDS,FString("FPSLobby"), EOnlineComparisonOp::Equals);
+			SearchSettings->QuerySettings.Set(SEARCH_LOBBIES,true,EOnlineComparisonOp::Equals);
+
+			SessionPtr->OnFindSessionsCompleteDelegates.AddUObject(this, &UFPSGameInstance::OnFindSessionsComplete);
+			SessionPtr->FindSessions(0, SearchSettings.ToSharedRef());
+		}
+	}
+}
+
+void UFPSGameInstance::OnFindSessionsComplete(bool bWasSuccessful)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Success Finding LOBBIES : %d"), bWasSuccessful);
+	if (bWasSuccessful)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Found %d Lobbies"), SearchSettings->SearchResults.Num());
+		if (OnlineSubsystem)
+		{
+			if (IOnlineSessionPtr SessionPtr = OnlineSubsystem->GetSessionInterface())
+			{
+				if (SearchSettings->SearchResults.Num())
+				{
+					SessionPtr->OnJoinSessionCompleteDelegates.AddUObject(this, &UFPSGameInstance::OnJoinSessionComplete);
+					SessionPtr->JoinSession(0, TestSessionName, SearchSettings->SearchResults[0]);
+				}
+			}
+		}
+	}
+	if (OnlineSubsystem)
+	{
+		if (IOnlineSessionPtr SessionPtr = OnlineSubsystem->GetSessionInterface())
+		{
+			SessionPtr->ClearOnFindSessionsCompleteDelegates(this);
+		}
+	}
+}
+
+void UFPSGameInstance::OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result)
+{
+	if (OnlineSubsystem && Result == EOnJoinSessionCompleteResult::Type::Success)
+	{
+		if (IOnlineSessionPtr SessionPtr = OnlineSubsystem->GetSessionInterface())
+		{
+			FString ConnectionInfo = FString();
+			SessionPtr->GetResolvedConnectString(SessionName, ConnectionInfo);
+			if (!ConnectionInfo.IsEmpty())
+			{
+				if (APlayerController* PC = UGameplayStatics::GetPlayerController(GetWorld(), 0))
+				{
+					PC->ClientTravel(ConnectionInfo, TRAVEL_Absolute);
+				}
+			}
+		}
+	}
+}
+
+
+
 
 void UFPSGameInstance::DestroySession()
 {
