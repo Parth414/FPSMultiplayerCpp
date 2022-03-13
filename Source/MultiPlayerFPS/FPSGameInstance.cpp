@@ -33,15 +33,15 @@ void UFPSGameInstance::Login()
 		if (IOnlineIdentityPtr Identity = OnlineSubsystem->GetIdentityInterface())
 		{
 			FOnlineAccountCredentials Credentials;
-			
+			/*
 			Credentials.Id = FString("127.0.0.1:1111");
 			Credentials.Token = FString("parth414");
 			Credentials.Type = FString("developer");
-			/*
+			*/
 			Credentials.Id = FString();
 			Credentials.Token = FString();
 			Credentials.Type = FString("accountportal");
-			*/
+			
 			Identity->OnLoginCompleteDelegates->AddUObject(this, &UFPSGameInstance::OnLoginComplete);
 			Identity->Login(0,Credentials);
 		}
@@ -151,6 +151,9 @@ void UFPSGameInstance::OnFindSessionsComplete(bool bWasSuccessful)
 
 void UFPSGameInstance::OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Session Joined"));
+	//UEngine* Engine = GetEngine();
+	//Engine->AddOnScreenDebugMessage(0, 5, FColor::Green, FString().Printf(TEXT("Session Joined")));
 	if (OnlineSubsystem && Result == EOnJoinSessionCompleteResult::Type::Success)
 	{
 		if (IOnlineSessionPtr SessionPtr = OnlineSubsystem->GetSessionInterface())
@@ -167,9 +170,6 @@ void UFPSGameInstance::OnJoinSessionComplete(FName SessionName, EOnJoinSessionCo
 		}
 	}
 }
-
-
-
 
 void UFPSGameInstance::DestroySession()
 {

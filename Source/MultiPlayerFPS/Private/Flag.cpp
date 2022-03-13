@@ -14,7 +14,8 @@ AFlag::AFlag()
 	PrimaryActorTick.bCanEverTick = true;
 
 	Flag = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("FLAG"));
-	Flag->SetActorRotation(FRotator(0.0f, 0.0f, 90.0f));
+	RootComponent = Flag;
+	RootComponent->SetWorldRotation(FRotator(-90.0f, 0.0f, 0.0f));
 
 }
 
