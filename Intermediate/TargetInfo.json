@@ -2,12 +2,12 @@
 	"Targets": [
 		{
 			"Name": "MultiPlayerFPS",
-			"Path": "C:\\Users\\parth\\Documents\\GitHub\\FPSMultiplayerCpp\\Source\\MultiPlayerFPS.Target.cs",
+			"Path": "D:\\Unreal Repos\\FPSMultiplayerCpp\\Source\\MultiPlayerFPS.Target.cs",
 			"Type": "Game"
 		},
 		{
 			"Name": "MultiPlayerFPSEditor",
-			"Path": "C:\\Users\\parth\\Documents\\GitHub\\FPSMultiplayerCpp\\Source\\MultiPlayerFPSEditor.Target.cs",
+			"Path": "D:\\Unreal Repos\\FPSMultiplayerCpp\\Source\\MultiPlayerFPSEditor.Target.cs",
 			"Type": "Editor"
 		}
 	]

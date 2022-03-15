@@ -33,14 +33,12 @@ void UFPSGameInstance::Login()
 		if (IOnlineIdentityPtr Identity = OnlineSubsystem->GetIdentityInterface())
 		{
 			FOnlineAccountCredentials Credentials;
-			/*
-			Credentials.Id = FString("127.0.0.1:1111");
-			Credentials.Token = FString("parth414");
+			Credentials.Id = FString("127.0.0.1:8081");
+			Credentials.Token = FString("TestName");
 			Credentials.Type = FString("developer");
-			*/
-			Credentials.Id = FString();
+			/*Credentials.Id = FString();
 			Credentials.Token = FString();
-			Credentials.Type = FString("accountportal");
+			Credentials.Type = FString("accountportal");*/
 			
 			Identity->OnLoginCompleteDelegates->AddUObject(this, &UFPSGameInstance::OnLoginComplete);
 			Identity->Login(0,Credentials);
@@ -73,7 +71,7 @@ void UFPSGameInstance::CreateSession()
 				FOnlineSessionSettings SessionSettings;
 				SessionSettings.bIsDedicated = false;
 				SessionSettings.bShouldAdvertise = true;
-				SessionSettings.bIsLANMatch = true;
+				SessionSettings.bIsLANMatch = false;
 				SessionSettings.NumPublicConnections = 5;
 				SessionSettings.bAllowJoinInProgress = true;
 				SessionSettings.bAllowJoinViaPresence = true;
@@ -95,6 +93,14 @@ void UFPSGameInstance::CreateSession()
 void UFPSGameInstance::OnlineCreateSessionComplete(FName SessionName, bool bWasSucccessful)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Success: %d"), bWasSucccessful);
+	if (bWasSucccessful)
+	{
+		UWorld* World = GetWorld();
+		if (!ensure(World != nullptr)) return;
+		
+		World->ServerTravel("/Game/FirstPersonCPP/Maps/Lobby?listen");
+		UE_LOG(LogTemp, Warning, TEXT("Lobby Hosted"));
+	}
 
 	if (OnlineSubsystem)
 	{
@@ -125,9 +131,13 @@ void UFPSGameInstance::FindSession()
 void UFPSGameInstance::OnFindSessionsComplete(bool bWasSuccessful)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Success Finding LOBBIES : %d"), bWasSuccessful);
+	
 	if (bWasSuccessful)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Found %d Lobbies"), SearchSettings->SearchResults.Num());
+		UEngine* Engine = GetEngine();
+		Engine->AddOnScreenDebugMessage(0, 5, FColor::Green, FString().Printf(TEXT("Total Sessions Found -> %d"), SearchSettings->SearchResults.Num()));
+		UE_LOG(LogTemp, Warning, TEXT("Total Sessions Found -> %d"), SearchSettings->SearchResults.Num());
+		
 		if (OnlineSubsystem)
 		{
 			if (IOnlineSessionPtr SessionPtr = OnlineSubsystem->GetSessionInterface())
@@ -152,8 +162,10 @@ void UFPSGameInstance::OnFindSessionsComplete(bool bWasSuccessful)
 void UFPSGameInstance::OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Session Joined"));
-	//UEngine* Engine = GetEngine();
-	//Engine->AddOnScreenDebugMessage(0, 5, FColor::Green, FString().Printf(TEXT("Session Joined")));
+	
+	UEngine* Engine = GetEngine();
+	Engine->AddOnScreenDebugMessage(0, 5, FColor::Green, FString().Printf(TEXT("Session Joined")));
+	
 	if (OnlineSubsystem && Result == EOnJoinSessionCompleteResult::Type::Success)
 	{
 		if (IOnlineSessionPtr SessionPtr = OnlineSubsystem->GetSessionInterface())
