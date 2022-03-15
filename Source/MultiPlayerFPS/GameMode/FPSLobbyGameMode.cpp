@@ -3,11 +3,17 @@
 
 #include "FPSLobbyGameMode.h"
 
+#include "MultiPlayerFPS/FPSGameInstance.h"
+
 void AFPSLobbyGameMode::PostLogin(APlayerController* NewPlayer)
 {
 	Super::PostLogin(NewPlayer);
 	++PlayerCount;
-
+	if(HasAuthority())
+	{
+		GetWorldTimerManager().SetTimer(TimerHandler, this, &AFPSLobbyGameMode::OpenMainMenu, 180);
+	}
+	
 	if(PlayerCount > 1)
 	{
 		UWorld* World = GetWorld();
@@ -22,4 +28,12 @@ void AFPSLobbyGameMode::Logout(AController* Exiting)
 {
 	Super::Logout(Exiting);
 	--PlayerCount;
+}
+
+void AFPSLobbyGameMode::OpenMainMenu()
+{
+	UFPSGameInstance* CurrentGameInstance = Cast<UFPSGameInstance>(GetGameInstance());
+
+	if (!ensure(CurrentGameInstance != nullptr)){return;}
+	CurrentGameInstance->DestroySession();
 }

@@ -185,6 +185,9 @@ void UFPSGameInstance::OnJoinSessionComplete(FName SessionName, EOnJoinSessionCo
 
 void UFPSGameInstance::DestroySession()
 {
+	FName LevelName = FName("/Game/FirstPersonCPP/Maps/Menu");
+	UGameplayStatics::OpenLevel(GetWorld(), LevelName);
+	
 	if (OnlineSubsystem)
 	{
 		if (IOnlineSessionPtr SessionPtr = OnlineSubsystem->GetSessionInterface())
