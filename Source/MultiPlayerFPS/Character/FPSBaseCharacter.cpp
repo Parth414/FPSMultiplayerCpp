@@ -7,6 +7,7 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "MultiPlayerFPS/Weapon/Gun.h"
+#include "MultiPlayerFPS/Weapon/MultiPlayerFPSProjectile.h"
 #include "DrawDebugHelpers.h"
 #include "Net/UnrealNetwork.h"
 
@@ -48,6 +49,20 @@ AFPSBaseCharacter::AFPSBaseCharacter()
 	Mesh1P->CastShadow = false;
 	Mesh1P->SetRelativeLocation(FVector(-0.5f, -4.4f, -155.7f));
 	Mesh1P->SetRelativeRotation(FRotator(1.9f, -19.19f, 5.2f));
+
+	// Create a gun mesh component
+	FP_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FP_Gun"));
+	FP_Gun->SetOnlyOwnerSee(false);			// otherwise won't be visible in the multiplayer
+	FP_Gun->bCastDynamicShadow = false;
+	FP_Gun->CastShadow = false;
+	// FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
+	FP_Gun->SetupAttachment(RootComponent);
+
+	FP_MuzzleLocatioion = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
+	FP_MuzzleLocatioion->SetupAttachment(FP_Gun);
+	FP_MuzzleLocatioion->SetRelativeLocation(FVector(0.2f, 48.4f, -10.6f));
+
+	GunOffset = FVector(100.0f, 0.0f, 10.0f);
 
 }
 
@@ -122,6 +137,23 @@ void AFPSBaseCharacter::UnPossessed()
 	
 }
 
+void AFPSBaseCharacter::Reload()
+{
+	if (Gun->clipAmmo != Gun->maxClipAmmo)
+	{
+		if (Gun->totalAmmo - (Gun->maxClipAmmo - Gun->clipAmmo) >= 0)
+		{
+			Gun->totalAmmo -= (Gun->maxClipAmmo - Gun->clipAmmo);
+			Gun->clipAmmo = Gun->maxClipAmmo;
+		}
+		else
+		{
+			Gun->clipAmmo += Gun->totalAmmo;
+			Gun->totalAmmo = 0;
+		}
+	}
+}
+
 void AFPSBaseCharacter::Local_PullTrigger()
 {
 	if (GetLocalRole() == ENetRole::ROLE_AutonomousProxy)
@@ -132,7 +164,8 @@ void AFPSBaseCharacter::Local_PullTrigger()
 	}
 	else
 	{
-		Gun->OnFire();
+		OnFire();
+		//Gun->OnFire();
 		MultiCast_PlayAnimationAny();
 	}
 }
@@ -141,6 +174,48 @@ void AFPSBaseCharacter::PlayAnimationAny()
 {
 	GetMesh()->GetAnimInstance()->Montage_Play(Gun->FireAnimation3P);
 	Mesh1P->GetAnimInstance()->Montage_Play(Gun->FireAnimation1P);
+}
+
+void AFPSBaseCharacter::OnFire()
+{
+	if (Gun->clipAmmo > 1)
+	{
+		// try and fire a projectile
+		if (ProjectileClass != nullptr)
+		{
+			UWorld* const World = GetWorld();
+			if (World != nullptr)
+			{
+				FHitResult Outhit;
+				FVector Start = FP_MuzzleLocatioion->GetComponentLocation();
+				FVector ForwardVector = FirstPersonCameraComponent->GetForwardVector();
+				FVector end = ((ForwardVector * 2000.f) + Start);
+				FCollisionQueryParams CollisionParams;
+
+				DrawDebugLine(GetWorld(), Start, end, FColor::Red, true);
+
+				const FRotator SpawnRotation = GetControlRotation();
+				// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
+				const FVector SpawnLocation = ((FP_MuzzleLocatioion != nullptr) ? FP_MuzzleLocatioion->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
+
+				//Set Spawn Collision Handling Override
+				FActorSpawnParameters ActorSpawnParams;
+				ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
+
+				// spawn the projectile at the muzzle
+				World->SpawnActor<AMultiPlayerFPSProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
+				
+
+			}
+
+		}
+		Gun->clipAmmo -= 1;
+	}
+	else if (Gun->totalAmmo > 0)
+	{
+		Reload();
+	}
+	Gun->PlayAnimationOnly();
 }
 
 void AFPSBaseCharacter::MultiCast_PlayAnimationAny_Implementation()
@@ -160,7 +235,8 @@ bool AFPSBaseCharacter::Server_PlayAnimationAny_Validate()
 
 void AFPSBaseCharacter::Server_PullTrigger_Implementation()
 {
-	Gun->OnFire();
+	OnFire();
+	//Gun->OnFire();
 }
 
 bool AFPSBaseCharacter::Server_PullTrigger_Validate()

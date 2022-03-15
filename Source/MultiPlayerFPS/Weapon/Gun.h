@@ -46,7 +46,10 @@ public:
 	/** Fires a projectile. */
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	void OnFire();
-
+	
+	UFUNCTION(BlueprintCallable, Category = "Input")
+	void Reload();
+		
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	void OnFireAnimationOnly();
 
@@ -70,7 +73,21 @@ public:
 	/** Whether to use motion controller location for aiming. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	uint32 bUsingMotionControllers : 1;
+#pragma region GunAmmoVariables
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Weapon)
+		int maxTotalAmmo;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Weapon)
+		int maxClipAmmo;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Weapon)
+		int totalAmmo;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Weapon)
+		int clipAmmo;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Weapon)
+		float reloadTime;
 	void PlayAnimationOnly();
 
 };
