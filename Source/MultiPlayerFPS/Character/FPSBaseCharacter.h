@@ -103,7 +103,7 @@ private:
 public:
 
 	UPROPERTY(EditDefaultsOnly, Category = Projectile)
-		TSubclassOf<class AMultiPlayerFPSProjectile> ProjectileClass;
+	TSubclassOf<class AMultiPlayerFPSProjectile> ProjectileClass;
 
 	UPROPERTY(BlueprintReadOnly, Replicated)
 	bool Rep_IsDead = false;

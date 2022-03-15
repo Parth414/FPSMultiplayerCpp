@@ -9,6 +9,7 @@
 #include "OnlineSubsystem.h"
 #include "OnlineSessionSettings.h"
 #include "Kismet/GameplayStatics.h"
+#include "Windows/AllowWindowsPlatformTypes.h"
 
 const FName TestSessionName = FName("Test Sessiom");
 
@@ -247,4 +248,25 @@ void UFPSGameInstance::OnGetAllFriendsComplete(int32 LocalUserNum, bool bWasSucc
 			}
 		}
 	}
+}
+
+void UFPSGameInstance::LeaveGameHost()
+{
+	DestroySession();
+}
+
+void UFPSGameInstance::LeaveGameClient()
+{
+	if (OnlineSubsystem)
+	{
+		if (IOnlineSessionPtr SessionPtr = OnlineSubsystem->GetSessionInterface())
+		{
+			if (GetPrimaryPlayerUniqueId().IsValid())
+			{
+				SessionPtr->RemovePlayerFromSession(0, TestSessionName, *GetPrimaryPlayerUniqueId());
+			}
+		}
+	}
+	FName LevelName = FName("/Game/FirstPersonCPP/Maps/Menu");
+	UGameplayStatics::OpenLevel(GetWorld(), LevelName);
 }

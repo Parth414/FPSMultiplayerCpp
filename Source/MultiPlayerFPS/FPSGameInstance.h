@@ -41,6 +41,12 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void GetAllFriends();
 	void OnGetAllFriendsComplete(int32 LocalUserNum, bool bWasSuccessful, const FString& ListName, const FString& ErrorStr);
+
+	UFUNCTION(BlueprintCallable)
+    void LeaveGameClient();
+	UFUNCTION(BlueprintCallable)
+	void LeaveGameHost();
+	
 protected:
 	class IOnlineSubsystem* OnlineSubsystem;
 
