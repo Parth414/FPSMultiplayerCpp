@@ -69,6 +69,7 @@ AFPSBaseCharacter::AFPSBaseCharacter()
 // Called when the game starts or when spawned
 void AFPSBaseCharacter::BeginPlay()
 {
+	GetWorld()->GetTimerManager().SetTimer(loopTimerHandle,this, &AFPSBaseCharacter::onTimerEnd,5.f,false);
 	Super::BeginPlay();
 
 	if (GunBlueprint == nullptr)
@@ -158,15 +159,21 @@ void AFPSBaseCharacter::Local_PullTrigger()
 {
 	if (GetLocalRole() == ENetRole::ROLE_AutonomousProxy)
 	{
-		Server_PullTrigger();
-		Server_PlayAnimationAny();
-		Gun->PlayAnimationOnly();
+		if (Gun->clipAmmo > 0)
+		{
+			Server_PullTrigger();
+			Server_PlayAnimationAny();
+			Gun->PlayAnimationOnly();
+		}
 	}
 	else
 	{
 		OnFire();
 		//Gun->OnFire();
-		MultiCast_PlayAnimationAny();
+		if (Gun->clipAmmo > 0)
+		{
+			MultiCast_PlayAnimationAny();
+		}
 	}
 }
 
@@ -178,7 +185,7 @@ void AFPSBaseCharacter::PlayAnimationAny()
 
 void AFPSBaseCharacter::OnFire()
 {
-	if (Gun->clipAmmo > 1)
+	if (Gun->clipAmmo >= 1)
 	{
 		// try and fire a projectile
 		if (ProjectileClass != nullptr)
@@ -193,8 +200,8 @@ void AFPSBaseCharacter::OnFire()
 				FCollisionQueryParams CollisionParams;
 
 				DrawDebugLine(GetWorld(), Start, end, FColor::Red, true);
-
-				const FRotator SpawnRotation = GetControlRotation();
+				Gun->PlayAnimationOnly();
+				/*const FRotator SpawnRotation = GetControlRotation();
 				// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
 				const FVector SpawnLocation = ((FP_MuzzleLocatioion != nullptr) ? FP_MuzzleLocatioion->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
 
@@ -204,7 +211,7 @@ void AFPSBaseCharacter::OnFire()
 
 				// spawn the projectile at the muzzle
 				World->SpawnActor<AMultiPlayerFPSProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
-				
+				*/
 
 			}
 
@@ -215,7 +222,11 @@ void AFPSBaseCharacter::OnFire()
 	{
 		Reload();
 	}
-	Gun->PlayAnimationOnly();
+	
+	/*/else if (Gun->clipAmmo == 0)
+	{
+
+	}*/
 }
 
 void AFPSBaseCharacter::MultiCast_PlayAnimationAny_Implementation()
@@ -304,4 +315,7 @@ void AFPSBaseCharacter::TakeDamageCustom_Implementation(float BaseDamage)
 	}
 }
 
-
+void AFPSBaseCharacter::onTimerEnd()
+{
+	GEngine->AddOnScreenDebugMessage(-1,5.f, FColor::Yellow, "Timer is up");
+}

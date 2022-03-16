@@ -99,9 +99,12 @@ public:
 private:
 	UPROPERTY(Replicated)
 	float Rep_CurrentHealth =  20;
+
+	FTimerHandle loopTimerHandle;
 	
 public:
-
+	UFUNCTION()
+	void onTimerEnd();
 	UPROPERTY(EditDefaultsOnly, Category = Projectile)
 	TSubclassOf<class AMultiPlayerFPSProjectile> ProjectileClass;
 
