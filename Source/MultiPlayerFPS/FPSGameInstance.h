@@ -46,6 +46,8 @@ public:
     void LeaveGameClient();
 	UFUNCTION(BlueprintCallable)
 	void LeaveGameHost();
+	UPROPERTY(BlueprintReadWrite)
+	bool IsMainMenuOpened;
 	
 protected:
 	class IOnlineSubsystem* OnlineSubsystem;

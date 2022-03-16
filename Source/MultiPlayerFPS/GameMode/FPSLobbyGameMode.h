@@ -20,6 +20,8 @@ public:
 
 private:
 	uint32 PlayerCount;
-	FTimerHandle TimerHandler;
+	FTimerHandle TimerHandlerQuit;
+	FTimerHandle TimerHandlerStart;
 	void OpenMainMenu();
+	void StartGame();
 };

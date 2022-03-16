@@ -11,16 +11,12 @@ void AFPSLobbyGameMode::PostLogin(APlayerController* NewPlayer)
 	++PlayerCount;
 	if(HasAuthority())
 	{
-		GetWorldTimerManager().SetTimer(TimerHandler, this, &AFPSLobbyGameMode::OpenMainMenu, 180);
+		GetWorldTimerManager().SetTimer(TimerHandlerQuit, this, &AFPSLobbyGameMode::OpenMainMenu, 180);
 	}
 	
 	if(PlayerCount > 1)
 	{
-		UWorld* World = GetWorld();
-		if (!ensure(World != nullptr)) return;
-		
-		World->ServerTravel("/Game/FirstPersonCPP/Maps/FirstPersonExampleMap?listen");
-		UE_LOG(LogTemp, Warning, TEXT("Game Started"));
+		GetWorldTimerManager().SetTimer(TimerHandlerStart, this, &AFPSLobbyGameMode::StartGame, 10);
 	}
 }
 
@@ -36,4 +32,13 @@ void AFPSLobbyGameMode::OpenMainMenu()
 
 	if (!ensure(CurrentGameInstance != nullptr)){return;}
 	CurrentGameInstance->DestroySession();
+}
+
+void AFPSLobbyGameMode::StartGame()
+{
+	UWorld* World = GetWorld();
+	if (!ensure(World != nullptr)) return;
+		
+	World->ServerTravel("/Game/FirstPersonCPP/Maps/FirstPersonExampleMap?listen");
+	UE_LOG(LogTemp, Warning, TEXT("Game Started"));
 }
