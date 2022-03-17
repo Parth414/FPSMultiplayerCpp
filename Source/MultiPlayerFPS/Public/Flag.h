@@ -22,8 +22,14 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	UPROPERTY(VisibleDefaultsOnly, Category = Mesh)
+	UPROPERTY(VisibleAnywhere,BlueprintReadWrite, Category = Mesh)
 		UStaticMeshComponent* Flag;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool hasFlag;
+
+	UFUNCTION()
+		void Overlap(UPrimitiveComponent* OverlapComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 	
 	
 };

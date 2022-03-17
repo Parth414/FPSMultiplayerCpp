@@ -2,18 +2,19 @@
 
 
 #include "Flag.h"
+#include "Components/SceneComponent.h"
+#include "GameFramework/Actor.h"
+#include "Engine/World.h"
 
 // Sets default values
 AFlag::AFlag()
 {
-	FRotator Rotation;
-	Rotation.Yaw = -90.0f;
-	Rotation.Pitch = 0.0f;
-	Rotation.Roll = 0.0f;
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	hasFlag = false;
 
 	Flag = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("FLAG"));
+	Flag->OnComponentBeginOverlap.AddDynamic(this, &AFlag::Overlap);
 	RootComponent = Flag;
 	RootComponent->SetWorldRotation(FRotator(-90.0f, 0.0f, 0.0f));
 
@@ -32,4 +33,13 @@ void AFlag::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
+
+void AFlag::Overlap(UPrimitiveComponent* OverlapComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	Destroy();
+	hasFlag = true;
+	//Flag->Deactivate()/*SetVisibility(false)*/;
+	
+}
+
 

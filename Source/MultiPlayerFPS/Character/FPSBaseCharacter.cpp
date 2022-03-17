@@ -7,6 +7,7 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "MultiPlayerFPS/Weapon/Gun.h"
+#include "MultiPlayerFPS/Public/Flag.h"
 #include "MultiPlayerFPS/Weapon/MultiPlayerFPSProjectile.h"
 #include "DrawDebugHelpers.h"
 #include "Net/UnrealNetwork.h"
@@ -49,7 +50,8 @@ AFPSBaseCharacter::AFPSBaseCharacter()
 	Mesh1P->CastShadow = false;
 	Mesh1P->SetRelativeLocation(FVector(-0.5f, -4.4f, -155.7f));
 	Mesh1P->SetRelativeRotation(FRotator(1.9f, -19.19f, 5.2f));
-
+	
+	showFlag = false;
 	// Create a gun mesh component
 	FP_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FP_Gun"));
 	FP_Gun->SetOnlyOwnerSee(false);			// otherwise won't be visible in the multiplayer
@@ -95,16 +97,20 @@ void AFPSBaseCharacter::BeginPlay()
 
 void AFPSBaseCharacter::GetLifetimeReplicatedProps(TArray< FLifetimeProperty > & OutLifetimeProps) const
 {
+
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 	DOREPLIFETIME(AFPSBaseCharacter, Rep_CurrentHealth);
 	DOREPLIFETIME(AFPSBaseCharacter, Rep_IsDead);
 }
 
+
+
 // Called every frame
 void AFPSBaseCharacter::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
 	
+	Super::Tick(DeltaTime);
+	showFlag = Flag->hasFlag;
 	DrawDebugString(GetWorld(), FVector(0,0,100), FString().Printf(TEXT("Current HP -> %0.f"), Rep_CurrentHealth), this, FColor::Green, DeltaTime);
 }
 

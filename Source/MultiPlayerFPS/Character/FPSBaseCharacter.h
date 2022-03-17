@@ -39,6 +39,8 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category="Setup")
 	bool JumpButtonDown;
 
+	
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -55,6 +57,8 @@ private:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Camera", meta=(AllowPrivateAccess = true))
 	class AGun* Gun;
+	
+	
 
 protected:
 	void OnFire();
@@ -70,7 +74,8 @@ public:
 	/*
 	 *Section For RPC
 	 */
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		bool showFlag;
 
 	UFUNCTION(BlueprintCallable, Category = "Input")
 		void Reload();
@@ -79,6 +84,10 @@ public:
 	void Server_PullTrigger();
 
 	void Local_PullTrigger();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		class AFlag* Flag;
+
 
 	UFUNCTION(Server, Reliable, WithValidation)
 	void Server_PlayAnimationAny();
